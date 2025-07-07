@@ -14,8 +14,8 @@ const HistoryNotFoundBanner = () => {
     })
   return (
     <View style={styles.emptyBanner}>
-                    <Text style={{fontWeight:'600',fontSize:32,width:160,color:colors.darkGray}}>
-                        There is no history{dots}
+                    <Text style={{fontWeight:'600',fontSize:32,width:140,color:colors.darkGray}}>
+                        No history{dots}
                     </Text>
                     
                     <Text style={{fontSize:16,color:colors.darkGray,fontWeight:'600'}}>
