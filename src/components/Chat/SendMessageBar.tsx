@@ -8,8 +8,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import colors from '../../consts/colors';
 const SendMessageBar = () => {
     const route = useRoute();
+    
     const [req,setReq] = useState('')
-    const {sendMessage} = useHistory()
+    const {sendMessage,isReqLoading} = useHistory()
     const handleSend = () => {
       if(route?.params?.chatId){
         sendMessage(route?.params?.chatId,req)
@@ -25,12 +26,8 @@ const SendMessageBar = () => {
         value={req}
         onChangeText={setReq}
       />
-      <MainButton variant="round" onPress={handleSend}>
-        <FontAwesome
-          name="send"
-          size={14}
-          color={colors.white}
-        />
+      <MainButton disabled={isReqLoading} variant="round" onPress={handleSend}>
+        <FontAwesome name="send" size={14} color={colors.white} />
       </MainButton>
     </View>
   );

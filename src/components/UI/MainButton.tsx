@@ -5,8 +5,9 @@ import { PressableProps } from 'react-native-gesture-handler'
 interface props extends PressableProps{
     children:ReactNode
     variant?:"round" | "long"
+    disabled?:boolean
 }
-const MainButton = ({children,variant = 'long',...props}:props) => {
+const MainButton = ({children,disabled,variant = 'long',...props}:props) => {
     const getStyles = () => {
         switch(variant){
             case 'round':
@@ -19,7 +20,7 @@ const MainButton = ({children,variant = 'long',...props}:props) => {
     }
   return (
 
-        <TouchableOpacity activeOpacity={0.8} onPress={() => props.onPress()} style={[styles.button,getStyles()]}>
+        <TouchableOpacity disabled={disabled} activeOpacity={0.8} onPress={() => props.onPress()} style={[styles.button,getStyles(),disabled ? styles.disabled : '']}>
             <Text style={{color:colors.white}}>
                 {children}
             </Text>
@@ -36,6 +37,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         backgroundColor:colors.black,
   
+    },
+    disabled:{
+        backgroundColor:colors.darkGray
     },
     round:{
         borderRadius:100,

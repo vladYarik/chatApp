@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { IMessage } from '../../state/types'
 import colors from '../../consts/colors'
 
@@ -10,16 +10,20 @@ interface props{
 
 const Message = ({ message, isLast }: props) => {
   const [animatedText, setAnimatedText] = useState(
-    (message.role === "assistant" && isLast) ? "" : message.content
+    message.role === "assistant" && isLast ? "" : message.content
   );
   const isUserMessage = useMemo(() => message.role === "user", [message.role]);
-  
+  const textRef = useRef("");
   useEffect(() => {
-    if (message.role === "assistant" && isLast ) {
+    if (message.role === "assistant" && isLast) {
       let i = 0;
+      setAnimatedText("");
+      textRef.current = "";
+      const text = message.content;
       const interval = setInterval(() => {
-        if (i < message.content.length - 1) {
-          setAnimatedText((prev) => prev + message.content[i]);
+        if (i < text.length) {
+          textRef.current += text[i];
+          setAnimatedText(textRef.current);
           i++;
         } else {
           clearInterval(interval);
